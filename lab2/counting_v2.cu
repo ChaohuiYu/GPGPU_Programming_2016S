@@ -19,7 +19,6 @@ struct filter_trans{
     }
 };
 
-/*
 struct filter_sacn{
     __host__ __device__ int operator()(int lhs, int rhs){
         if(rhs==0)  return -1;
@@ -29,15 +28,13 @@ struct filter_sacn{
 };
 
 
-
 struct filter_zero{
     __host__ __device__ int operator()(int &text){
   		if(text!=0) return text;
   		else  return 0;
     }
 };
-*/
-/*
+
 __global__ void buildSegTree(int shifted_pivot, int *segment_tree, const char *text=NULL, int text_size=0){
     long long int idx = blockIdx.x*blockDim.x + threadIdx.x;
     long long int tree_idx = shifted_pivot + idx;
@@ -71,7 +68,6 @@ __host__ int SegmentTreeSize(int text_size){
 	return s<<1;	
 }
 
-*/
 
 
 
@@ -95,92 +91,6 @@ void CountPosition1(const char *text, int *pos, int text_size)
 
 }
 
-__global__ void flag(const char *text, int *pos, int text_size)
-{
-	int idx = blockIdx.x * blockDim.x + threadIdx.x;
-	
-	if(idx < text_size) {
-		if(text[idx] != '\n')
-			pos[idx] = 1;
-		else
-			pos[idx] = 0;
-	}
-
-}
-
-__global__ void Blt(int* flag, int * pos, int text_size)
-{
-
-   
-   int idx = blockIdx.x * blockDim.x + threadIdx.x;
-   //idx = idx * k;
-
-  // if ( flag[idx] == 0 && idx <= text_size ) 
-  //		pos[idx]=0;
-
-	if(idx==0 && flag[idx]==1)
-	{
-		for (int i = 0; idx + i < text_size; i++) 
-	    {
-			if (flag[idx + i] == 1)
-				pos[idx + i] = i + 1;
-			else   		// run into zero
-				break ;
-		}
-
-	}
-
-
-
-	else if( idx>0 && idx<=text_size )
-    if (flag[idx-1]==0 ) //  the previous one is zero 
-    {
-	   for (int i = 0; idx + i < text_size; i++) 
-	    {
-			if (flag[idx + i] == 1)
-				pos[idx + i] = i + 1;
-			else   		// run into zero
-				break ;
-		}
-	}
-	
-   
-
-  
-
-
-}
-
-
-
-void CountPosition2(const char *text, int *pos, int text_size)
-{
-
-	int BlockSize =512;
-	int nBlock= text_size / BlockSize + 1;
-	//int * one_and_zero=new int[text_size];
-
-	int *one_and_zero; 	
-	size_t arraysize = sizeof(int) * text_size;	
-	cudaMalloc((void **)&one_and_zero, arraysize);
-
-	flag<<<nBlock,BlockSize>>>(text,one_and_zero,text_size);
-
-	cudaDeviceSynchronize();
-
-
-
-
-	Blt<<<nBlock,BlockSize>>>(one_and_zero,pos,text_size);
-	cudaDeviceSynchronize();
-
-	cudaFree(one_and_zero);
-
-	//delete [] one_and_zero;
-
-}
-
-/*
 //count global
 __global__ void d_countPosition(int *pos, int *segment_tree, int text_size, int seg_tree_size){
     long int idx = blockIdx.x*blockDim.x + threadIdx.x;
