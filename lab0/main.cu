@@ -18,15 +18,38 @@ __global__ void Draw(char *frame) {
 	// Do not just submit the original file provided by the TA!
 	const int y = blockIdx.y * blockDim.y + threadIdx.y;
 	const int x = blockIdx.x * blockDim.x + threadIdx.x;
-	if (y < H and x < W) {
+	if (y < H && x < W) {
 		char c;
 		if (x == W-1) {
 			c = y == H-1 ? '\0' : '\n';
 		} else if (y == 0 or y == H-1 or x == 0 or x == W-2) {
 			c = ':';
-		} else {
+
+		} else if (x >= 18 and x <=21 and  y >=5 and y <=10) { // draw four lines 
+			c = '#';
+		} else if ((x == 17 or x == 16) and y >=6 and y <= 10){
+			c = '#';
+		} else if ((x == 15 or x == 14) and y >=7 and y <= 10){
+			c = '#';			
+		} else if ((x == 13 or x == 12) and y >=8 and y <= 10){
+			c = '#';		
+		} else if ((x == 11 or x == 10) and y >=9 and y <= 10){
+			c = '#';		
+		} else if ((x == 9 or x == 8) and y ==10){
+			c = '#';		
+		} else if (x == 33 and y ==10){
+			c = '#';		
+		} else if (x == 33 and (y >=5 and y <=10)){
+			c = '|';		
+		} else if (x == 32 and y ==5){
+			c = '<';		
+		} 
+
+			
+		else {
 			c = ' ';
 		}
+		 
 		frame[y*W+x] = c;
 	}
 }
