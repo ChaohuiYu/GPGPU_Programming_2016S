@@ -1,27 +1,23 @@
 # 2017
 ## Lab 0
 Please make sure your version is ahead of bf721d8.
+Topic: The famous scene in Nintendo Super Mario.
 
 ## Lab 1
 Please make sure your version is ahead of d7f67fc.
+Topic: Make a video with CUDA
+Details: [Spec](./lab1/lab1.pdf)
 
 ## Lab 2
 Please make sure your version is ahead of c45d96f.
-
-# 2016
-In principle we do not forbid you to peek the homework of 2016
-, but keep in mind that we may renew the homework as the course progresses.
-
-## Lab 1
-Please make sure your version is ahead of bf64ada.
-
-## Lab 2
-Please make sure your version is ahead of 6af5f1c.
+Topic: 1. Thrust library 2. Implement parallel algorithms on GPU.
+Detail: [Spec](./lab2/lab2.pdf)
 
 ## Lab 3
-Please make sure your version is ahead of 827f7e7.
+Topic: Implement Poisson Editing for image cloning on the GPUs.
+Details: [Spec](./lab3/lab3.pdf)
+Report: [Report_3](./lab3/report.pdf)
 
-We also provide a testcase which is included in lab3/lab3\_test.zip.
 
 # Git
 If you are not familiar with Git, [this](http://backlogtool.com/git-guide/tw/intro/intro1_1.html) is the tutorial.
